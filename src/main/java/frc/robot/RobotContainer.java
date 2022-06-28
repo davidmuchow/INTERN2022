@@ -5,6 +5,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.motorcontrol.Jaguar;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
@@ -30,6 +31,9 @@ public class RobotContainer {
     configureButtonBindings();
   }
   public DriveTrain driveSub = new DriveTrain(motorLeft, motorRight);
+
+  public static Joystick joysitck = new Joystick(0);
+
   /**
    * Use this method to define your button->command mappings. Buttons can be created by
    * instantiating a {@link GenericHID} or one of its subclasses ({@link
@@ -37,7 +41,7 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    new InstantCommand(driveSub::Drive, driveSub);
+    
   }
 
   /**

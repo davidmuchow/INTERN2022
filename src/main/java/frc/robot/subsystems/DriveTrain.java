@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Robot;
 import frc.robot.commands.Drive;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -16,21 +17,16 @@ public class DriveTrain extends SubsystemBase {
   // private MotorController leftMotor;
   // private MotorController rightMotor;
   DifferentialDrive diffDrive;
-  private double joystickXInput;
-  private double joystickZInput;
-
-  public static Joystick joysitck;
 
   public DriveTrain(MotorController leftMotor, MotorController rightMotor) {
     diffDrive = new DifferentialDrive(leftMotor, rightMotor);
   }
-  public void Drive() {
-    diffDrive.arcadeDrive(joystickXInput, joystickZInput);
+  public void drive() {
+    diffDrive.arcadeDrive(Robot.joystickXInput, Robot.joystickZInput);
   }
 
   @Override
   public void periodic() {
-    joystickXInput = DriveTrain.joysitck.getX();
-    joystickZInput = DriveTrain.joysitck.getZ();
+    drive();
   }
 }
