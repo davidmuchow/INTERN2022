@@ -20,4 +20,14 @@ public final class Constants {
         public final static int MOTORRIGHT_ONE = 3;
         public final static int MOTORRIGHT_TWO = 4;
     }
+
+    public static final class ROBOT_MODES {
+        public final static int MANUAL = 0;
+        public final static int AUTO = 1;
+    }
+
+    public static final class AUTO_MODES {
+        public final static int STATICV_ENCODER_DRIVE = 0;
+        public final static int PATHPLANNER_MODE = 1;
+    }
 }

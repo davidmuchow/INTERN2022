@@ -5,6 +5,8 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
+import frc.robot.RobotContainer;
 
 import java.util.ArrayList;
 
@@ -51,13 +53,19 @@ public class DriveTrain extends SubsystemBase {
     SmartDashboard.putNumber("Z:", Z);
     SmartDashboard.putNumber("Left Motor Output:", SparkMaxArrays.get(0)[0].getAppliedOutput());
     SmartDashboard.putNumber("Right Motor Output:", SparkMaxArrays.get(1)[0].getAppliedOutput());
-    
+
     //diffDrive.arcadeDrive(line(Y), line(Z));
     diffDrive.arcadeDrive(Y, Z);
+  }
+  public void setMotors(double setpoint) {
+    left.set(setpoint);
+    right.set(setpoint);
   }
 
   @Override
   public void periodic() {
-    drive();
+    if (RobotContainer.CUR_DRIVE_MODE == Constants.ROBOT_MODES.MANUAL) {
+      drive();
+    }
   }
 }
