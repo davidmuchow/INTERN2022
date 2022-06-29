@@ -34,8 +34,19 @@ public class DriveTrain extends SubsystemBase {
     diffDrive = new DifferentialDrive(left, right);
     this.PrimaryController = PrimaryController;
   }
+
+  public double line(double input) {
+    // 0.1275364 - 2.597472*x + 15.27631*x^2 - 24.70417*x^3 + 16.87782*x^4 - 4.027326*x^5
+    return 0.1275364 - 2.597472 * input + 15.27631 * Math.pow(input, 2) - 24.70417 * Math.pow(input, 3) + 16.87782 * Math.pow(input, 4) - 4.027326 * Math.pow(input, 5);
+  }
+
   public void drive() {
-    diffDrive.arcadeDrive(PrimaryController.getY(), PrimaryController.getZ());
+    double Y = -PrimaryController.getX();
+    double Z = -PrimaryController.getZ();
+
+
+
+    diffDrive.arcadeDrive(line(Y), line(Z));
   }
 
   @Override
