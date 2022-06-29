@@ -14,10 +14,10 @@ package frc.robot;
  */
 public final class Constants {
     public static final class ID {
-        public final static int MOTORLEFT_ONE = 15;
-        public final static int MOTORLEFT_TWO = 0;
+        public final static int MOTORLEFT_ONE = 1;
+        public final static int MOTORLEFT_TWO = 2;
 
-        public final static int MOTORRIGHT_ONE = 0;
-        public final static int MOTORRIGHT_TWO = 0;
+        public final static int MOTORRIGHT_ONE = 3;
+        public final static int MOTORRIGHT_TWO = 4;
     }
 }

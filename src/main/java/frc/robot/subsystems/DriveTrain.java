@@ -13,6 +13,8 @@ import com.revrobotics.CANSparkMax;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveTrain extends SubsystemBase {
   /** Creates a new DriveTrain. */
@@ -30,6 +32,7 @@ public class DriveTrain extends SubsystemBase {
     SparkMaxArrays.add(rightMotors);
 
     left = new MotorControllerGroup(leftMotors[0], leftMotors[1]);
+    left.setInverted(true);
     right = new MotorControllerGroup(rightMotors[0], rightMotors[1]);
     diffDrive = new DifferentialDrive(left, right);
     this.PrimaryController = PrimaryController;
@@ -41,12 +44,16 @@ public class DriveTrain extends SubsystemBase {
   }
 
   public void drive() {
-    double Y = -PrimaryController.getX();
+    double Y = -PrimaryController.getY();
     double Z = -PrimaryController.getZ();
 
-
-
-    diffDrive.arcadeDrive(line(Y), line(Z));
+    SmartDashboard.putNumber("Y:", Y);
+    SmartDashboard.putNumber("Z:", Z);
+    SmartDashboard.putNumber("Left Motor Output:", SparkMaxArrays.get(0)[0].getAppliedOutput());
+    SmartDashboard.putNumber("Right Motor Output:", SparkMaxArrays.get(1)[0].getAppliedOutput());
+    
+    //diffDrive.arcadeDrive(line(Y), line(Z));
+    diffDrive.arcadeDrive(Y, Z);
   }
 
   @Override
