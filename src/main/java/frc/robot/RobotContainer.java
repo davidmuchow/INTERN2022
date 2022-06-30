@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
@@ -12,6 +13,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import frc.robot.subsystems.AutoDrive;
 import frc.robot.subsystems.DriveTrain;
 
 /**
@@ -27,7 +29,15 @@ public class RobotContainer {
   CANSparkMax motorRightTwo = new CANSparkMax(Constants.ID.MOTORRIGHT_TWO, MotorType.kBrushless);
   static Joystick joy = new Joystick(0);
 
-  DriveTrain drivey = new DriveTrain(joy, new CANSparkMax[] {motorLeftOne, motorLeftTwo}, new CANSparkMax[] {motorRightOne, motorRightTwo});
+  
+  
+  
+  public static int CUR_DRIVE_MODE = Constants.ROBOT_MODES.AUTO;
+
+  public DriveTrain drivey = new DriveTrain(joy, new CANSparkMax[] {motorLeftOne, motorLeftTwo}, new CANSparkMax[] {motorRightOne, motorRightTwo});
+  public AutoDrive autoDrive = new AutoDrive(drivey);
+
+  public AHRS navX = new AHRS();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {

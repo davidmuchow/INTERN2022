@@ -4,10 +4,16 @@
 
 package frc.robot;
 
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
+
+import edu.wpi.first.wpilibj.CAN;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.commands.Drive;
+import frc.robot.commands.EncoderDriveDistance;
+import frc.robot.commands.TurnWithGyro;
+import frc.robot.subsystems.AutoDrive;
 import frc.robot.subsystems.DriveTrain;
 
 /**
@@ -34,7 +40,13 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
-    
+
+    for(CANSparkMax[] motorarr : m_robotContainer.drivey.SparkMaxArrays) {
+      for(CANSparkMax currMotor : motorarr) {
+        currMotor.getEncoder().setPosition(0);
+        currMotor.setIdleMode(IdleMode.kCoast);
+      }
+    }
   }
 
   /**
@@ -64,16 +76,15 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
-
-    // schedule the autonomous command (example)
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.schedule();
-    }
+    
+    //new EncoderDriveDistance(m_robotContainer.autoDrive, m_robotContainer.drivey, 5, 0.75).schedule();
+    new TurnWithGyro(m_robotContainer.navX, 90, m_robotContainer.drivey).schedule();
   }
 
   /** This function is called periodically during autonomous. */
   @Override
-  public void autonomousPeriodic() {}
+  public void autonomousPeriodic() {
+  }
 
   @Override
   public void teleopInit() {

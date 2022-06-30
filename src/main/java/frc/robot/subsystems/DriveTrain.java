@@ -11,6 +11,7 @@ import frc.robot.RobotContainer;
 import java.util.ArrayList;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -22,7 +23,7 @@ public class DriveTrain extends SubsystemBase {
   /** Creates a new DriveTrain. */
   // private MotorController leftMotor;
   // private MotorController rightMotor;
-  ArrayList<CANSparkMax[]> SparkMaxArrays;
+  public ArrayList<CANSparkMax[]> SparkMaxArrays;
   DifferentialDrive diffDrive;
   MotorControllerGroup left;
   MotorControllerGroup right;
@@ -45,6 +46,8 @@ public class DriveTrain extends SubsystemBase {
     return 0.1275364 - 2.597472 * input + 15.27631 * Math.pow(input, 2) - 24.70417 * Math.pow(input, 3) + 16.87782 * Math.pow(input, 4) - 4.027326 * Math.pow(input, 5);
   }
 
+
+
   public void drive() {
     double Y = -PrimaryController.getY();
     double Z = -PrimaryController.getZ();
@@ -58,14 +61,29 @@ public class DriveTrain extends SubsystemBase {
     diffDrive.arcadeDrive(Y, Z);
   }
   public void setMotors(double setpoint) {
-    left.set(setpoint);
-    right.set(setpoint);
+    
+    diffDrive.tankDrive(setpoint, setpoint);
+  }
+  public void setCoast() {
+    for(CANSparkMax[] motorarr : SparkMaxArrays) {
+      for(CANSparkMax currMotor : motorarr) {
+        currMotor.setIdleMode(IdleMode.kCoast);
+      }
+    }
+  }
+
+  public void setBrakes() {
+    for(CANSparkMax[] motorarr : SparkMaxArrays) {
+      for(CANSparkMax currMotor : motorarr) {
+        currMotor.setIdleMode(IdleMode.kBrake);
+      }
+    }
+  }
+  
+  public void rotate(double output) {
+      diffDrive.arcadeDrive(0, output);
   }
 
   @Override
-  public void periodic() {
-    if (RobotContainer.CUR_DRIVE_MODE == Constants.ROBOT_MODES.MANUAL) {
-      drive();
-    }
-  }
+  public void periodic() {}
 }

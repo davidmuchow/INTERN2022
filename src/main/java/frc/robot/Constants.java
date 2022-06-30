@@ -20,6 +20,12 @@ public final class Constants {
         public final static int MOTORRIGHT_ONE = 3;
         public final static int MOTORRIGHT_TWO = 4;
     }
+    public static final class ENCODER_CONSTATNS {
+        public static final double GEAR_RATIO = 10.71;
+        public static final double TICKS_PER_ROTATION = 42;
+        public static final int WHEEL_DIAMETER = 6; //inches
+        public static final double WHEEL_CIRCUMFRENCE = Math.PI * Math.pow(3, 2);
+    }
 
     public static final class ROBOT_MODES {
         public final static int MANUAL = 0;
