@@ -19,7 +19,7 @@ public class TurnWithGyro extends PIDCommand {
   public TurnWithGyro(AHRS navX, double setpoint, DriveTrain driveSub) {
     super(
         // The controller that the command will use
-        new PIDController(0.12, 0, 0),
+        new PIDController(0.0012, 0, 0),
         // This should return the measurement
         navX::getAngle,
         // This should return the setpoint (can also be a constant)

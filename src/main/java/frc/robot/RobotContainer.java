@@ -8,12 +8,16 @@ import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.EncoderDriveDistance;
+import frc.robot.commands.TurnWithGyro;
 import frc.robot.subsystems.AutoDrive;
 import frc.robot.subsystems.DriveTrain;
 
@@ -33,7 +37,7 @@ public class RobotContainer {
   public DriveTrain drivey = new DriveTrain(new CANSparkMax[] {motorLeftOne, motorLeftTwo}, new CANSparkMax[] {motorRightOne, motorRightTwo});
   public AutoDrive autoDrive = new AutoDrive(drivey);
 
-  public AHRS navX = new AHRS();
+  public static AHRS navX = new AHRS();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -41,6 +45,12 @@ public class RobotContainer {
     configureButtonBindings();
     drivey.setDefaultCommand(
       new RunCommand(() -> drivey.drive(joy.getY(), joy.getZ()), drivey)
+    );
+    new JoystickButton(joy, 1).whenPressed(
+        new EncoderDriveDistance(autoDrive, drivey, 4.8, .3)
+    );
+    new JoystickButton(joy, 2).whenPressed(
+        new TurnWithGyro(navX, 180, drivey)
     );
   }
 
