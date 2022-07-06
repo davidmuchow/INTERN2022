@@ -15,6 +15,9 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.EncoderDriveDistance;
+import frc.robot.commands.TurnWithGyro;
 import frc.robot.subsystems.AutoDrive;
 import frc.robot.subsystems.DriveTrain;
 
@@ -42,6 +45,12 @@ public class RobotContainer {
     configureButtonBindings();
     drivey.setDefaultCommand(
       new RunCommand(() -> drivey.drive(joy.getY(), joy.getZ()), drivey)
+    );
+    new JoystickButton(joy, 1).whenPressed(
+        new EncoderDriveDistance(autoDrive, drivey, 4.8, .3)
+    );
+    new JoystickButton(joy, 2).whenPressed(
+        new TurnWithGyro(navX, 180, drivey)
     );
   }
 

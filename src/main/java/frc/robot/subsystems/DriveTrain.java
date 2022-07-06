@@ -45,21 +45,18 @@ public class DriveTrain extends SubsystemBase {
     return 0.1275364 - 2.597472 * input + 15.27631 * Math.pow(input, 2) - 24.70417 * Math.pow(input, 3) + 16.87782 * Math.pow(input, 4) - 4.027326 * Math.pow(input, 5);
   }
 
-
-
   public void drive(double Y, double Z) {
-
     SmartDashboard.putNumber("Y:", Y);
     SmartDashboard.putNumber("Z:", Z);
     SmartDashboard.putNumber("Left Motor Output:", SparkMaxArrays.get(0)[0].getAppliedOutput());
     SmartDashboard.putNumber("Right Motor Output:", SparkMaxArrays.get(1)[0].getAppliedOutput());
+    SmartDashboard.putNumber("navvie value", RobotContainer.navX.getAngle());
 
     //diffDrive.arcadeDrive(line(Y), line(Z));
-    diffDrive.arcadeDrive(-Y, -Z);
+    diffDrive.arcadeDrive(Z, Y);
   }
   public void setMotors(double setpoint) {
-    
-    diffDrive.tankDrive(setpoint, setpoint);
+    diffDrive.arcadeDrive(0, -setpoint);
   }
   public void setCoast() {
     for(CANSparkMax[] motorarr : SparkMaxArrays) {
@@ -78,7 +75,7 @@ public class DriveTrain extends SubsystemBase {
   }
   
   public void rotate(double output) {
-      diffDrive.arcadeDrive(0, output);
+      diffDrive.arcadeDrive(output, 0);
   }
 
   @Override

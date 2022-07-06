@@ -29,25 +29,22 @@ public class AutoDrive extends SubsystemBase {
       }
     }
   }
-  
+
   public void useEncoders(double distance) {
     driveSub.setMotors(0.25);
     distance = Units.metersToInches(distance);
-    double distanceToRotations = distance / Constants.ENCODER_CONSTATNS.WHEEL_CIRCUMFRENCE;
+    double distanceToRotations = distance / Constants.ENCODER_CONSTANTS.WHEEL_CIRCUMFRENCE;
     double currentTicks = encoders.get(0).getPosition();
-    if((currentTicks / Constants.ENCODER_CONSTATNS.TICKS_PER_ROTATION) == distanceToRotations) {
+    if((currentTicks / Constants.ENCODER_CONSTANTS.TICKS_PER_ROTATION) == distanceToRotations) {
       driveSub.setMotors(0);
     }
   }
 
   public double useEncoders(double distance, double speed) {
     driveSub.setMotors(speed);
-    distance = Units.metersToInches(distance);
-    double distanceToRotations = distance / Constants.ENCODER_CONSTATNS.WHEEL_CIRCUMFRENCE;
     double currentTicks = Math.abs(encoders.get(0).getPosition());
-    SmartDashboard.putNumber("currentTicks", currentTicks / Constants.ENCODER_CONSTATNS.TICKS_PER_ROTATION);
-    SmartDashboard.putNumber("distanceToRotations", distanceToRotations);
-    return currentTicks / Constants.ENCODER_CONSTATNS.TICKS_PER_ROTATION;
+    SmartDashboard.putNumber("currentTicks", currentTicks);
+    return currentTicks;
   }
 
   public void turnDegrees(double angle) {
