@@ -46,11 +46,11 @@ public class RobotContainer {
     drivey.setDefaultCommand(
       new RunCommand(() -> drivey.drive(joy.getY(), joy.getZ()), drivey)
     );
-    new JoystickButton(joy, 1).whenPressed(
+    new JoystickButton(joy, 1).whenPressed(   
         new EncoderDriveDistance(autoDrive, drivey, 4.8, .3)
     );
     new JoystickButton(joy, 2).whenPressed(
-        new TurnWithGyro(90, drivey)
+        new TurnWithGyro(90, drivey, navX)
     );
   }
 

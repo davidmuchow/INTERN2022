@@ -24,7 +24,7 @@ public class DriveTrain extends SubsystemBase {
   // private MotorController leftMotor;
   // private MotorController rightMotor;
   public ArrayList<CANSparkMax[]> SparkMaxArrays;
-  DifferentialDrive diffDrive;
+  public DifferentialDrive diffDrive;
   public MotorControllerGroup left;
   public MotorControllerGroup right;
   

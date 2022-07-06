@@ -79,7 +79,7 @@ public class Robot extends TimedRobot {
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
     
     //new EncoderDriveDistance(m_robotContainer.autoDrive, m_robotContainer.drivey, 5, 0.75).schedule();
-    new TurnWithGyro(90, m_robotContainer.drivey).schedule();
+    new TurnWithGyro(90, m_robotContainer.drivey, RobotContainer.navX).schedule();
   }
 
   /** This function is called periodically during autonomous. */
