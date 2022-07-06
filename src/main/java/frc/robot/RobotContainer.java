@@ -8,6 +8,7 @@ import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
@@ -29,7 +30,7 @@ public class RobotContainer {
   CANSparkMax motorRightOne = new CANSparkMax(Constants.ID.MOTORRIGHT_ONE, MotorType.kBrushless);
   CANSparkMax motorRightTwo = new CANSparkMax(Constants.ID.MOTORRIGHT_TWO, MotorType.kBrushless);
   static Joystick joy = new Joystick(0);
-  
+
   public DriveTrain drivey = new DriveTrain(new CANSparkMax[] {motorLeftOne, motorLeftTwo}, new CANSparkMax[] {motorRightOne, motorRightTwo});
   public AutoDrive autoDrive = new AutoDrive(drivey);
 

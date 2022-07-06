@@ -25,6 +25,7 @@ public class EncoderDriveDistance extends CommandBase {
     addRequirements(autoHandler, driveSub);
 
   }
+  
 
   // Called when the command is initially scheduled.
   @Override
