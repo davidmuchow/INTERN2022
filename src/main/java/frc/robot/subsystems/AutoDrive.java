@@ -56,6 +56,7 @@ public class AutoDrive extends SubsystemBase {
       driveSub.right.set(0);
       if(angle > Robot.currentAngle) {
         driveSub.setMotors(0);
+        
       }
     }
     if(angle < 0) {
