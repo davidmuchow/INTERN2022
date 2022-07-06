@@ -27,9 +27,10 @@ public class Robot extends TimedRobot {
 
   private RobotContainer m_robotContainer;
 
+  public static double currentAngle;
+
 
   /**
-   * This function is run when the robot is first started up and should be used for any
    * initialization code.
    */
   @Override
@@ -60,6 +61,7 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
+    currentAngle = RobotContainer.navX.getAngle();
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
