@@ -46,24 +46,6 @@ public class AutoDrive extends SubsystemBase {
     SmartDashboard.putNumber("currentTicks", currentTicks);
     return currentTicks;
   }
-
-  public void turnDegrees(double angle) {
-    if(angle > 0) {
-      driveSub.left.set(0.3);
-      driveSub.right.set(0);
-      if(angle > Robot.currentAngle) {
-        driveSub.setMotors(0);
-        
-      }
-    }
-    if(angle < 0) {
-      driveSub.left.set(0);
-      driveSub.right.set(0.3);
-      if(angle < Robot.currentAngle) {
-        driveSub.setMotors(0);
-      }
-    }
-  }
   
   public void stopMotors() {
     driveSub.setMotors(0);

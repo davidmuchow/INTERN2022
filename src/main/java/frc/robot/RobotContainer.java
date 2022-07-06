@@ -50,7 +50,7 @@ public class RobotContainer {
         new EncoderDriveDistance(autoDrive, drivey, 4.8, .3)
     );
     new JoystickButton(joy, 2).whenPressed(
-        new TurnWithGyro(navX, 180, drivey)
+        new TurnWithGyro(90, drivey)
     );
   }
 
