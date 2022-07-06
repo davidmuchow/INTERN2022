@@ -26,14 +26,4 @@ public final class Constants {
         public static final int WHEEL_DIAMETER = 6; //inches
         public static final double WHEEL_CIRCUMFRENCE = Math.PI * Math.pow(3, 2);
     }
-
-    public static final class ROBOT_MODES {
-        public final static int MANUAL = 0;
-        public final static int AUTO = 1;
-    }
-
-    public static final class AUTO_MODES {
-        public final static int STATICV_ENCODER_DRIVE = 0;
-        public final static int PATHPLANNER_MODE = 1;
-    }
 }

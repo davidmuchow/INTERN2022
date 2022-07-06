@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.robot.subsystems.AutoDrive;
 import frc.robot.subsystems.DriveTrain;
 
@@ -28,13 +29,8 @@ public class RobotContainer {
   CANSparkMax motorRightOne = new CANSparkMax(Constants.ID.MOTORRIGHT_ONE, MotorType.kBrushless);
   CANSparkMax motorRightTwo = new CANSparkMax(Constants.ID.MOTORRIGHT_TWO, MotorType.kBrushless);
   static Joystick joy = new Joystick(0);
-
   
-  
-  
-  public static int CUR_DRIVE_MODE = Constants.ROBOT_MODES.AUTO;
-
-  public DriveTrain drivey = new DriveTrain(joy, new CANSparkMax[] {motorLeftOne, motorLeftTwo}, new CANSparkMax[] {motorRightOne, motorRightTwo});
+  public DriveTrain drivey = new DriveTrain(new CANSparkMax[] {motorLeftOne, motorLeftTwo}, new CANSparkMax[] {motorRightOne, motorRightTwo});
   public AutoDrive autoDrive = new AutoDrive(drivey);
 
   public AHRS navX = new AHRS();
@@ -43,6 +39,9 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
+    drivey.setDefaultCommand(
+      new RunCommand(() -> drivey.drive(joy.getY(), joy.getZ()), drivey)
+    );
   }
 
   /**
