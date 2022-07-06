@@ -52,6 +52,13 @@ public class AutoDrive extends SubsystemBase {
     return currentTicks / Constants.ENCODER_CONSTATNS.TICKS_PER_ROTATION;
   }
 
+  public void turnDegrees(double angle) {
+    if(angle < 0) {
+      driveSub.left.set(0);
+      driveSub.right.set(0.25);
+    }
+  }
+  
   public void stopMotors() {
     driveSub.setMotors(0);
   }
