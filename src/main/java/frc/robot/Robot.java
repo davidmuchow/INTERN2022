@@ -29,6 +29,7 @@ public class Robot extends TimedRobot {
 
   public static double joystickXInput = 0;
   public static double joystickZInput = 0;
+  public static double currentAngle;
 
 
   /**
@@ -63,6 +64,7 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
+    currentAngle = RobotContainer.navX.getAngle();
   }
 
   /** This function is called once each time the robot enters Disabled mode. */

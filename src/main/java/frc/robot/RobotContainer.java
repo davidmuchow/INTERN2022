@@ -33,7 +33,7 @@ public class RobotContainer {
   public DriveTrain drivey = new DriveTrain(new CANSparkMax[] {motorLeftOne, motorLeftTwo}, new CANSparkMax[] {motorRightOne, motorRightTwo});
   public AutoDrive autoDrive = new AutoDrive(drivey);
 
-  public AHRS navX = new AHRS();
+  public static AHRS navX = new AHRS();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {

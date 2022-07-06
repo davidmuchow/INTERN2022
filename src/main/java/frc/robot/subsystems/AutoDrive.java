@@ -13,6 +13,8 @@ import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
+import frc.robot.Robot;
 
 public class AutoDrive extends SubsystemBase {
   private DriveTrain driveSub;
@@ -49,9 +51,19 @@ public class AutoDrive extends SubsystemBase {
   }
 
   public void turnDegrees(double angle) {
+    if(angle > 0) {
+      driveSub.left.set(0.3);
+      driveSub.right.set(0);
+      if(angle > Robot.currentAngle) {
+        driveSub.setMotors(0);
+      }
+    }
     if(angle < 0) {
       driveSub.left.set(0);
-      driveSub.right.set(0.25);
+      driveSub.right.set(0.3);
+      if(angle < Robot.currentAngle) {
+        driveSub.setMotors(0);
+      }
     }
   }
   
