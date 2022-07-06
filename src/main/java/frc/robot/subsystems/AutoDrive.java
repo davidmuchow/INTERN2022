@@ -8,18 +8,14 @@ import java.util.ArrayList;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
-import com.revrobotics.SparkMaxRelativeEncoder;
-import com.revrobotics.CANSparkMax.IdleMode;
 
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.RobotContainer;
 
 public class AutoDrive extends SubsystemBase {
   private DriveTrain driveSub;
-  private int CURR_AUTO_MODE = 0;
   private ArrayList<RelativeEncoder> encoders;
 
   public AutoDrive(DriveTrain driveSub) {
@@ -31,7 +27,7 @@ public class AutoDrive extends SubsystemBase {
       }
     }
   }
-
+  
   public void useEncoders(double distance) {
     driveSub.setMotors(0.25);
     distance = Units.metersToInches(distance);

@@ -27,9 +27,8 @@ public class DriveTrain extends SubsystemBase {
   DifferentialDrive diffDrive;
   MotorControllerGroup left;
   MotorControllerGroup right;
-  Joystick PrimaryController;
 
-  public DriveTrain(Joystick PrimaryController, CANSparkMax[] leftMotors, CANSparkMax[] rightMotors) {
+  public DriveTrain(CANSparkMax[] leftMotors, CANSparkMax[] rightMotors) {
     SparkMaxArrays = new ArrayList<CANSparkMax[]>();
     SparkMaxArrays.add(leftMotors);
     SparkMaxArrays.add(rightMotors);
@@ -38,7 +37,6 @@ public class DriveTrain extends SubsystemBase {
     left.setInverted(true);
     right = new MotorControllerGroup(rightMotors[0], rightMotors[1]);
     diffDrive = new DifferentialDrive(left, right);
-    this.PrimaryController = PrimaryController;
   }
 
   public double line(double input) {
@@ -48,9 +46,7 @@ public class DriveTrain extends SubsystemBase {
 
 
 
-  public void drive() {
-    double Y = -PrimaryController.getY();
-    double Z = -PrimaryController.getZ();
+  public void drive(double Y, double Z) {
 
     SmartDashboard.putNumber("Y:", Y);
     SmartDashboard.putNumber("Z:", Z);
@@ -58,7 +54,7 @@ public class DriveTrain extends SubsystemBase {
     SmartDashboard.putNumber("Right Motor Output:", SparkMaxArrays.get(1)[0].getAppliedOutput());
 
     //diffDrive.arcadeDrive(line(Y), line(Z));
-    diffDrive.arcadeDrive(Y, Z);
+    diffDrive.arcadeDrive(-Y, -Z);
   }
   public void setMotors(double setpoint) {
     
