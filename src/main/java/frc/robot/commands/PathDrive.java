@@ -4,43 +4,41 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.DriveTrain;
-import frc.robot.Robot;
+import frc.robot.subsystems.AutoDrive;
+import frc.robot.commands.*;
 
-public class TurnWithGyro extends CommandBase {
+public class PathDrive extends CommandBase {
+  /** Creates a new PathDrive. */
 
-  double targetAngle;
-  DriveTrain driveSub;
+  private DriveTrain driveSub;
+  private AutoDrive autoDriveSub;
 
-  /** Creates a new TurnWithGryo. */
-  public TurnWithGyro(double targetAngle, DriveTrain driveSub) {
-    this.targetAngle = targetAngle;
+  public PathDrive(DriveTrain driveSub) {
     this.driveSub = driveSub;
+    this.autoDriveSub = autoDriveSub;
     addRequirements(driveSub);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(targetAngle > 0) {
-      driveSub.left.set(0.3);
-      driveSub.right.set(0);
-      if(targetAngle > Robot.currentAngle) {
-        driveSub.setMotors(0);
-      }
-    }
-    if(targetAngle < 0) {
-      driveSub.left.set(0);
-      driveSub.right.set(0.3);
-      if(targetAngle < Robot.currentAngle) {
-        driveSub.setMotors(0);
-      }
-    }
+    new SequentialCommandGroup(
+      new EncoderDriveDistance(autoDriveSub, driveSub, 3, 0.3),
+      new TurnWithGyro(180, driveSub),
+      new EncoderDriveDistance(autoDriveSub, driveSub, 3, 0.3)
+    );
+
   }
 
   // Called once the command ends or is interrupted.
@@ -50,6 +48,6 @@ public class TurnWithGyro extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return Math.abs(Robot.currentAngle) >= targetAngle;
+    return false;
   }
 }

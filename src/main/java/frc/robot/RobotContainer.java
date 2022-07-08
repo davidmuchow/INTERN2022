@@ -8,6 +8,7 @@ import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.math.controller.RamseteController;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
@@ -17,6 +18,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.EncoderDriveDistance;
+import frc.robot.commands.PathDrive;
 import frc.robot.commands.TurnWithGyro;
 import frc.robot.subsystems.AutoDrive;
 import frc.robot.subsystems.DriveTrain;
@@ -33,6 +35,8 @@ public class RobotContainer {
   CANSparkMax motorRightOne = new CANSparkMax(Constants.ID.MOTORRIGHT_ONE, MotorType.kBrushless);
   CANSparkMax motorRightTwo = new CANSparkMax(Constants.ID.MOTORRIGHT_TWO, MotorType.kBrushless);
   static Joystick joy = new Joystick(0);
+
+  public static RamseteController trajectoryController = new RamseteController();
 
   public DriveTrain drivey = new DriveTrain(new CANSparkMax[] {motorLeftOne, motorLeftTwo}, new CANSparkMax[] {motorRightOne, motorRightTwo});
   public AutoDrive autoDrive = new AutoDrive(drivey);
@@ -51,6 +55,9 @@ public class RobotContainer {
     );
     new JoystickButton(joy, 2).whenPressed(
         new TurnWithGyro(90, drivey)
+    );
+    new JoystickButton(joy, 3).whenPressed(
+      new PathDrive(drivey)
     );
   }
 
