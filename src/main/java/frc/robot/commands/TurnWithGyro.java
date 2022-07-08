@@ -4,40 +4,51 @@
 
 package frc.robot.commands;
 
+
+import com.kauailabs.navx.frc.AHRS;
+
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.Robot;
+import frc.robot.RobotContainer;
 
 public class TurnWithGyro extends CommandBase {
 
   double targetAngle;
   DriveTrain driveSub;
+  AHRS NavX;
 
   /** Creates a new TurnWithGryo. */
-  public TurnWithGyro(double targetAngle, DriveTrain driveSub) {
+  public TurnWithGyro(double targetAngle, DriveTrain driveSub, AHRS NavX) {
     this.targetAngle = targetAngle;
     this.driveSub = driveSub;
+    this.NavX = NavX;
     addRequirements(driveSub);
   }
 
-  // Called when the command is initially scheduled.
+  // Called when the command is initially schedule.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    NavX.reset();
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+
+    SmartDashboard.putNumber("current", Robot.currentAngle);
+    SmartDashboard.putNumber("target", targetAngle);
+
     if(targetAngle > 0) {
-      driveSub.left.set(0.3);
-      driveSub.right.set(0);
-      if(targetAngle > Robot.currentAngle) {
+      driveSub.diffDrive.arcadeDrive(0.3,0);
+      if(targetAngle < Robot.currentAngle) {
         driveSub.setMotors(0);
       }
     }
     if(targetAngle < 0) {
-      driveSub.left.set(0);
-      driveSub.right.set(0.3);
-      if(targetAngle < Robot.currentAngle) {
+      driveSub.diffDrive.arcadeDrive(0.3,0);
+      if(targetAngle > Robot.currentAngle) {
         driveSub.setMotors(0);
       }
     }
@@ -45,11 +56,13 @@ public class TurnWithGyro extends CommandBase {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    driveSub.setBrakes();
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return Math.abs(Robot.currentAngle) >= targetAngle;
+    return Math.abs(NavX.getAngle()) >= targetAngle;
   }
 }
