@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.AutoDrive;
+import frc.robot.RobotContainer;
 import frc.robot.commands.*;
 
 public class PathDrive extends CommandBase {
@@ -35,7 +36,7 @@ public class PathDrive extends CommandBase {
   public void execute() {
     new SequentialCommandGroup(
       new EncoderDriveDistance(autoDriveSub, driveSub, 3, 0.3),
-      new TurnWithGyro(180, driveSub),
+      new TurnWithGyro(180, driveSub, RobotContainer.navX),
       new EncoderDriveDistance(autoDriveSub, driveSub, 3, 0.3)
     );
 
