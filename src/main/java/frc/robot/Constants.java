@@ -26,4 +26,13 @@ public final class Constants {
         public static final int WHEEL_DIAMETER = 6; //inches
         public static final double WHEEL_CIRCUMFRENCE = Math.PI * 2 * WHEEL_DIAMETER / 2;
     }
+
+    public static final class AUTO_CONSTANTS {
+        public static final double ksVolts = 0.22;
+        public static final double kvVoltSecondsPerMeter = 1.98;
+        public static final double kaVoltSecondsSquaredPerMeter = 0.2;
+    
+        // Example value only - as above, this must be tuned for your drive!
+        public static final double kPDriveVel = 8.5;
+    }
 }
