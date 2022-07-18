@@ -4,6 +4,13 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
+import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
+import edu.wpi.first.math.trajectory.TrajectoryConfig;
+import edu.wpi.first.math.trajectory.constraint.DifferentialDriveVoltageConstraint;
+import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive.WheelSpeeds;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
@@ -25,14 +32,41 @@ public final class Constants {
         public static final double TICKS_PER_ROTATION = 42;
         public static final int WHEEL_DIAMETER = 6; //inches
         public static final double WHEEL_CIRCUMFRENCE = Math.PI * 2 * WHEEL_DIAMETER / 2;
+        public static final double WHEEM_CIRCUMFRENCE_METERS = Units.inchesToMeters(WHEEL_CIRCUMFRENCE);
     }
 
     public static final class AUTO_CONSTANTS {
         public static final double ksVolts = 0.22;
         public static final double kvVoltSecondsPerMeter = 1.98;
         public static final double kaVoltSecondsSquaredPerMeter = 0.2;
+        public static final double kTrackwidthMeters = 0.69;
+        public static final DifferentialDriveKinematics kDriveKinematics =
+        new DifferentialDriveKinematics(kTrackwidthMeters);
+
+        DifferentialDriveVoltageConstraint autoVoltageConstraint =
+            new DifferentialDriveVoltageConstraint(
+                new SimpleMotorFeedforward(
+                    ksVolts,
+                    kvVoltSecondsPerMeter,
+                    kaVoltSecondsSquaredPerMeter),
+                kDriveKinematics,
+            10);
     
         // Example value only - as above, this must be tuned for your drive!
         public static final double kPDriveVel = 8.5;
+        // max speeds n shit
+        public static final double kMaxSpeedMetersPerSecond = 3;
+        public static final double kMaxAccelerationMetersPerSecondSquared = 3;
+        TrajectoryConfig config = new TrajectoryConfig(
+            kMaxSpeedMetersPerSecond, kMaxAccelerationMetersPerSecondSquared)
+            .setKinematics(kDriveKinematics)
+            .addConstraint(autoVoltageConstraint);
+        
+        // ramsete coefficents
+        public static final double kRamseteB = 2;
+        public static final double kRamseteZeta = 0.7;
+        public static final String[] pathNames = {"New Path"};
     }
+
+
 }

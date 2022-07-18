@@ -4,19 +4,32 @@
 
 package frc.robot;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
 import com.kauailabs.navx.frc.AHRS;
+import com.pathplanner.lib.PathPlanner;
+import com.pathplanner.lib.PathPlannerTrajectory;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.math.controller.RamseteController;
+import edu.wpi.first.math.trajectory.Trajectory;
+import edu.wpi.first.math.trajectory.TrajectoryUtil;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.Constants.AUTO_CONSTANTS;
+import frc.robot.commands.DriveOnPath;
 import frc.robot.commands.EncoderDriveDistance;
 import frc.robot.commands.PathDrive;
 import frc.robot.commands.TurnWithGyro;
@@ -39,26 +52,40 @@ public class RobotContainer {
   public static RamseteController trajectoryController = new RamseteController();
 
   public DriveTrain drivey = new DriveTrain(new CANSparkMax[] {motorLeftOne, motorLeftTwo}, new CANSparkMax[] {motorRightOne, motorRightTwo});
-  public AutoDrive autoDrive = new AutoDrive(drivey);
-
   public static AHRS navX = new AHRS();
-
+  public AutoDrive autoDrive = new AutoDrive(drivey, navX);
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
-    drivey.setDefaultCommand(
-      new RunCommand(() -> drivey.drive(joy.getY(), joy.getZ()), drivey)
-    );
-    new JoystickButton(joy, 1).whenPressed(   
-        new EncoderDriveDistance(autoDrive, drivey, 4.8, .3)
-    );
-    new JoystickButton(joy, 2).whenPressed(
-        new TurnWithGyro(90, drivey, navX)
-    );
-    new JoystickButton(joy, 3).whenPressed(
-      new PathDrive(drivey, autoDrive)
-    );
+    try (SendableChooser<PathPlannerTrajectory> sendie = new SendableChooser<>()) {
+      for (String pathName: Constants.AUTO_CONSTANTS.pathNames) {
+        sendie.addOption(pathName, 
+          PathPlanner.loadPath(
+            pathName, 
+            AUTO_CONSTANTS.kMaxSpeedMetersPerSecond, 
+            AUTO_CONSTANTS.kMaxAccelerationMetersPerSecondSquared)
+        );
+      }
+
+
+      drivey.setDefaultCommand(
+        new RunCommand(() -> drivey.drive(joy.getY(), joy.getZ()), drivey)
+      );
+      new JoystickButton(joy, 1).whenPressed(   
+          new EncoderDriveDistance(autoDrive, drivey, 4.8, .3)
+      );
+      new JoystickButton(joy, 2).whenPressed(
+          new TurnWithGyro(90, drivey, navX)
+      );
+      new JoystickButton(joy, 3).whenPressed(
+        new PathDrive(drivey, autoDrive)
+      );
+      new JoystickButton(joy, 4).whenPressed(
+        new DriveOnPath(sendie.getSelected(), autoDrive, drivey)
+      );
+    }
+
   }
 
   /**
