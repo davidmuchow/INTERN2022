@@ -57,7 +57,7 @@ public class RobotContainer {
         new TurnWithGyro(90, drivey, navX)
     );
     new JoystickButton(joy, 3).whenPressed(
-      new PathDrive(drivey, autoDrive)
+      new PathDrive(drivey, autoDrive )
     );
   }
 
