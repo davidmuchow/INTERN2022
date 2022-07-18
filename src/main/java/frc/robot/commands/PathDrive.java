@@ -19,7 +19,7 @@ public class PathDrive extends CommandBase {
   private DriveTrain driveSub;
   private AutoDrive autoDriveSub;
 
-  public PathDrive(DriveTrain driveSub) {
+  public PathDrive(DriveTrain driveSub, AutoDrive autoDriveSub) {
     this.driveSub = driveSub;
     this.autoDriveSub = autoDriveSub;
     addRequirements(driveSub);
