@@ -38,7 +38,7 @@ public class PathDrive extends CommandBase {
       new EncoderDriveDistance(autoDriveSub, driveSub, 3, 0.3),
       new TurnWithGyro(180, driveSub, RobotContainer.navX),
       new EncoderDriveDistance(autoDriveSub, driveSub, 3, 0.3)
-    );
+    ).execute();
 
   }
 
