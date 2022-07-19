@@ -20,12 +20,21 @@ public class DriveOnPath extends CommandBase {
   public PathPlannerTrajectory traj;
   public RamseteCommand command;
   public AutoDrive auto;
+  public DriveTrain drive;
 
   public DriveOnPath(PathPlannerTrajectory traj, AutoDrive auto, DriveTrain drive) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.traj = traj;
     this.auto = auto;
-    command = new RamseteCommand(
+    this.drive = drive;
+    addRequirements(auto, drive);
+  }
+
+  // Called when the command is initially scheduled.
+  @Override
+  public void initialize() {
+    auto.resetOdometry(traj.getInitialPose());
+    this.command = new RamseteCommand(
       traj, 
       auto::getPose, 
       new RamseteController(AUTO_CONSTANTS.kRamseteB, AUTO_CONSTANTS.kRamseteZeta), 
@@ -38,19 +47,13 @@ public class DriveOnPath extends CommandBase {
       auto,
       drive
     );
-    addRequirements(auto, drive);
-  }
-
-  // Called when the command is initially scheduled.
-  @Override
-  public void initialize() {
-    auto.resetOdometry(traj.getInitialPose());
+    command.schedule();
+    
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    command.execute();
   }
 
   // Called once the command ends or is interrupted.

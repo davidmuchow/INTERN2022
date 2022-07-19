@@ -79,5 +79,7 @@ public class DriveTrain extends SubsystemBase {
   }
 
   @Override
-  public void periodic() {}
+  public void periodic() {
+    Shuffleboard.getTab("Control");
+  }
 }

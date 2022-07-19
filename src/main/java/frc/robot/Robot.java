@@ -28,6 +28,7 @@ public class Robot extends TimedRobot {
   private RobotContainer m_robotContainer;
 
   public static double currentAngle;
+  public static double currentSpeed;
 
 
   /**
@@ -62,6 +63,7 @@ public class Robot extends TimedRobot {
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
     currentAngle = RobotContainer.navX.getAngle();
+    currentSpeed = m_robotContainer.motorLeftOne.getAppliedOutput();
   }
 
   /** This function is called once each time the robot enters Disabled mode. */

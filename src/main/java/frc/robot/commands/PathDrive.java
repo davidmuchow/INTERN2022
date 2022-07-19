@@ -38,7 +38,7 @@ public class PathDrive extends CommandBase {
       new EncoderDriveDistance(autoDriveSub, driveSub, 3, 0.3),
       new TurnWithGyro(180, driveSub, RobotContainer.navX),
       new EncoderDriveDistance(autoDriveSub, driveSub, 3, 0.3)
-    ).execute();
+    ).schedule();
 
   }
 
@@ -49,6 +49,6 @@ public class PathDrive extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }

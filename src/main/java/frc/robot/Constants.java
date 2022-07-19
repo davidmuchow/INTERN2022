@@ -34,12 +34,12 @@ public final class Constants {
         public static final double WHEEL_CIRCUMFRENCE = Math.PI * 2 * WHEEL_DIAMETER / 2;
         public static final double WHEEM_CIRCUMFRENCE_METERS = Units.inchesToMeters(WHEEL_CIRCUMFRENCE);
     }
-
+    
     public static final class AUTO_CONSTANTS {
-        public static final double ksVolts = 0.22;
-        public static final double kvVoltSecondsPerMeter = 1.98;
-        public static final double kaVoltSecondsSquaredPerMeter = 0.2;
-        public static final double kTrackwidthMeters = 0.69;
+        public static final double ksVolts = 0.11532;
+        public static final double kvVoltSecondsPerMeter = 2.9005;
+        public static final double kaVoltSecondsSquaredPerMeter =0.48898;
+        public static final double kTrackwidthMeters = 0.64;
         public static final DifferentialDriveKinematics kDriveKinematics =
         new DifferentialDriveKinematics(kTrackwidthMeters);
 
@@ -53,10 +53,10 @@ public final class Constants {
             10);
     
         // Example value only - as above, this must be tuned for your drive!
-        public static final double kPDriveVel = 8.5;
-        // max speeds n shit
+        public static final double kPDriveVel = 5.3853E-06;
+        // max speeds n shit 
         public static final double kMaxSpeedMetersPerSecond = 3;
-        public static final double kMaxAccelerationMetersPerSecondSquared = 3;
+        public static final double kMaxAccelerationMetersPerSecondSquared = 0.5;
         TrajectoryConfig config = new TrajectoryConfig(
             kMaxSpeedMetersPerSecond, kMaxAccelerationMetersPerSecondSquared)
             .setKinematics(kDriveKinematics)

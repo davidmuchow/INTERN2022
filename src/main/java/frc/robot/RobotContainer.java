@@ -67,7 +67,7 @@ public class RobotContainer {
             AUTO_CONSTANTS.kMaxAccelerationMetersPerSecondSquared)
         );
       }
-
+      sendie.setDefaultOption("default", PathPlanner.loadPath(Constants.AUTO_CONSTANTS.pathNames[0], 5, 9));
 
       drivey.setDefaultCommand(
         new RunCommand(() -> drivey.drive(joy.getY(), joy.getZ()), drivey)
@@ -85,7 +85,7 @@ public class RobotContainer {
         new DriveOnPath(sendie.getSelected(), autoDrive, drivey)
       );
     }
-
+    
   }
 
   /**
