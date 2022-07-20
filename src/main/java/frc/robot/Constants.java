@@ -33,6 +33,7 @@ public final class Constants {
         public static final int WHEEL_DIAMETER = 6; //inches
         public static final double WHEEL_CIRCUMFRENCE = Math.PI * 2 * WHEEL_DIAMETER / 2;
         public static final double WHEEM_CIRCUMFRENCE_METERS = Units.inchesToMeters(WHEEL_CIRCUMFRENCE);
+        public static final double GEARING = 1 / GEAR_RATIO;
     }
     
     public static final class AUTO_CONSTANTS {
