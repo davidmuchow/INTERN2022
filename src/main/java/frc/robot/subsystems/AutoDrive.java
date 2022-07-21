@@ -73,7 +73,7 @@ public class AutoDrive extends SubsystemBase {
   }
 
   public double getPositionSpecific(int id) {
-    return encoders.get(id).getPosition() * Constants.ENCODER_CONSTANTS.GEARING * Constants.ENCODER_CONSTANTS.WHEEM_CIRCUMFRENCE_METERS / 60; // conversion * magic constants
+    return encoders.get(id).getPosition() / 42 * Constants.ENCODER_CONSTANTS.GEARING * Constants.ENCODER_CONSTANTS.WHEEM_CIRCUMFRENCE_METERS; // conversion * magic constants
   }
 
   public double getVelocitySpecific(int id) {

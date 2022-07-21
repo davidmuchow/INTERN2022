@@ -9,6 +9,7 @@ import com.pathplanner.lib.PathPlannerTrajectory;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.RamseteController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import frc.robot.subsystems.AutoDrive;
@@ -54,6 +55,8 @@ public class DriveOnPath extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    SmartDashboard.putNumber("poseX",auto.m_odometer.getPoseMeters().getX());
+    SmartDashboard.putNumber("poseY",auto.m_odometer.getPoseMeters().getY());
   }
 
   // Called once the command ends or is interrupted.
