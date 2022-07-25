@@ -65,7 +65,7 @@ public final class Constants {
         // ramsete coefficents
         public static final double kRamseteB = 2;
         public static final double kRamseteZeta = 0.7;
-        public static final String[] pathNames = {"New Path"};
+        public static final String[] pathNames = {"New Path", "Circle"};
     }
 
 
