@@ -34,9 +34,9 @@ public class DriveTrain extends SubsystemBase {
     SparkMaxArrays.add(leftMotors);
     SparkMaxArrays.add(rightMotors);
 
-    left = new MotorControllerGroup(leftMotors[0], leftMotors[1]);
+    left = new MotorControllerGroup(leftMotors[0]);
     left.setInverted(true);
-    right = new MotorControllerGroup(rightMotors[0], rightMotors[1]);
+    right = new MotorControllerGroup(rightMotors[0]);
     diffDrive = new DifferentialDrive(left, right);
   }
 

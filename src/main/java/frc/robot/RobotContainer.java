@@ -51,7 +51,7 @@ public class RobotContainer {
 
   public static RamseteController trajectoryController = new RamseteController();
 
-  public DriveTrain drivey = new DriveTrain(new CANSparkMax[] {motorLeftOne, motorLeftTwo}, new CANSparkMax[] {motorRightOne, motorRightTwo});
+  public DriveTrain drivey = new DriveTrain(new CANSparkMax[] {motorLeftOne}, new CANSparkMax[] {motorRightTwo});
   public static AHRS navX = new AHRS();
   public AutoDrive autoDrive = new AutoDrive(drivey, navX);
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -67,7 +67,7 @@ public class RobotContainer {
             AUTO_CONSTANTS.kMaxAccelerationMetersPerSecondSquared)
         );
       }
-      sendie.setDefaultOption("default", PathPlanner.loadPath(Constants.AUTO_CONSTANTS.pathNames[1], 5, 9));
+      sendie.setDefaultOption("default", PathPlanner.loadPath(Constants.AUTO_CONSTANTS.pathNames[0], 5, 9));
 
       drivey.setDefaultCommand(
         new RunCommand(() -> drivey.drive(joy.getY(), joy.getZ()), drivey)

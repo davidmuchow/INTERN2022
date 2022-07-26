@@ -8,7 +8,9 @@ import java.util.ArrayList;
 
 import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.EncoderType;
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.SparkMaxRelativeEncoder;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
@@ -73,7 +75,9 @@ public class AutoDrive extends SubsystemBase {
   }
 
   public double getPositionSpecific(int id) {
-    return encoders.get(id).getPosition() / 42 * Constants.ENCODER_CONSTANTS.GEARING * Constants.ENCODER_CONSTANTS.WHEEM_CIRCUMFRENCE_METERS; // conversion * magic constants
+    SmartDashboard.putNumber("id"+id, encoders.get(id).getPosition() * Constants.ENCODER_CONSTANTS.GEARING);
+    SmartDashboard.putNumber("dd", encoders.get(id).getCountsPerRevolution());
+    return encoders.get(id).getPosition() * Constants.ENCODER_CONSTANTS.GEARING * Constants.ENCODER_CONSTANTS.WHEEM_CIRCUMFRENCE_METERS; // conversion * magic constants
   }
 
   public double getVelocitySpecific(int id) {
@@ -85,7 +89,7 @@ public class AutoDrive extends SubsystemBase {
   }
 
   public DifferentialDriveWheelSpeeds getWheelSpeeds() {
-    return new DifferentialDriveWheelSpeeds(getVelocitySpecific(0), getVelocitySpecific(2));
+    return new DifferentialDriveWheelSpeeds(getVelocitySpecific(0), getVelocitySpecific(1));
   }
 
   public double getHeading() {
@@ -101,6 +105,10 @@ public class AutoDrive extends SubsystemBase {
   @Override
   public void periodic() {
     m_odometer.update(
-      navX.getRotation2d(), getPositionSpecific(0), getPositionSpecific(2));
-  }
+      navX.getRotation2d(), getPositionSpecific(0), getPositionSpecific(1));
+      SmartDashboard.putNumber("curposX", m_odometer.getPoseMeters().getX());
+      SmartDashboard.putNumber("curposY", m_odometer.getPoseMeters().getY());
+      SmartDashboard.putNumber("PositionSpecific0", getPositionSpecific(0));
+      SmartDashboard.putNumber("PositionSpecific1", getPositionSpecific(1));
+    }
 }
