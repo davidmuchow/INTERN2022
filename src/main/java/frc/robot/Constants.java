@@ -35,7 +35,6 @@ public final class Constants {
         public static final double WHEEM_CIRCUMFRENCE_METERS = Units.inchesToMeters(WHEEL_CIRCUMFRENCE);
         public static final double GEARING = 1 / GEAR_RATIO;
     }
-    
     public static final class AUTO_CONSTANTS {
         public static final double ksVolts = 0.18312;
         public static final double kvVoltSecondsPerMeter = 3.2496;
@@ -53,7 +52,7 @@ public final class Constants {
             10);
     
         // Example value only - as above, this must be tuned for your drive!
-        public static final double kPDriveVel = 4.7127;
+        public static final double kPDriveVel = 4.010027;
         // max speeds n shit 
         public static final double kMaxSpeedMetersPerSecond = 3;
         public static final double kMaxAccelerationMetersPerSecondSquared = 0.5;
@@ -67,6 +66,4 @@ public final class Constants {
         public static final double kRamseteZeta = 0.7;
         public static final String[] pathNames = {"New Path"};
     }
-
-
 }

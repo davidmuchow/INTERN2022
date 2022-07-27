@@ -39,6 +39,7 @@ public class DriveOnPath extends CommandBase {
   public void initialize() {
     time = Timer.getFPGATimestamp();
     auto.resetOdometry(traj.getInitialPose());
+    drive.setCoast();
     ram = new RamseteController(AUTO_CONSTANTS.kRamseteB, AUTO_CONSTANTS.kRamseteZeta);
     this.command = new RamseteCommand(
       traj, 
@@ -47,8 +48,8 @@ public class DriveOnPath extends CommandBase {
       new SimpleMotorFeedforward(AUTO_CONSTANTS.ksVolts, AUTO_CONSTANTS.kvVoltSecondsPerMeter, AUTO_CONSTANTS.kaVoltSecondsSquaredPerMeter),
       AUTO_CONSTANTS.kDriveKinematics, 
       auto::getWheelSpeeds, 
-      new PIDController(AUTO_CONSTANTS.kPDriveVel, 0, 5),
-      new PIDController(AUTO_CONSTANTS.kPDriveVel, 0, 5),
+      new PIDController(AUTO_CONSTANTS.kPDriveVel, 0, 1.1E-3),
+      new PIDController(AUTO_CONSTANTS.kPDriveVel, 0, 1.1E-3),
       auto::tankDriveVolts,
       auto,
       drive
