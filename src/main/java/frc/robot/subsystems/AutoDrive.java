@@ -51,12 +51,34 @@ public class AutoDrive extends SubsystemBase {
   }
 
   public double useEncoders(double distance, double speed) {
-    driveSub.setMotors(speed);
+    CANSparkMax[] leftSide = driveSub.SparkMaxArrays.get(0);
+    CANSparkMax[] rightSide = driveSub.SparkMaxArrays.get(1);
+    for(CANSparkMax motor : leftSide) {
+      motor.set(0.15);
+    }
+    for(CANSparkMax motor : rightSide) {
+      motor.set(returnRightGain(0.15));
+    }
     double currentTicks = Math.abs(encoders.get(0).getPosition());
     SmartDashboard.putNumber("currentTicks", currentTicks);
     return currentTicks;
   }
   
+  public double returnLeftGain(double speed) {
+    if(Math.abs(speed) > 0.9) {
+      speed = 0.9;
+    }
+    return speed;
+  }
+  
+  public double returnRightGain(double speed) {
+      speed += 0.1;
+      if(Math.abs(speed) > 1) {
+        speed = 1;
+      }
+      return speed;
+  }
+
   public void stopMotors() {
     driveSub.setMotors(0);
   }

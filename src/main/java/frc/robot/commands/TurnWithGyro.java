@@ -46,10 +46,10 @@ public class TurnWithGyro extends CommandBase {
       CANSparkMax[] leftSide = driveSub.SparkMaxArrays.get(0);
       CANSparkMax[] rightSide = driveSub.SparkMaxArrays.get(1);
       for(CANSparkMax motor : leftSide) {
-        motor.set(0.3);
+        motor.set(0.15);
       }
       for(CANSparkMax motor : rightSide) {
-        motor.set(-0.3);
+        motor.set(-0.15);
       }
       if(targetAngle < Robot.currentAngle) {
         driveSub.setMotors(0);

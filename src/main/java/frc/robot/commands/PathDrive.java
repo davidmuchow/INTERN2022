@@ -41,13 +41,13 @@ public class PathDrive extends CommandBase {
   public Command square() {
     return new SequentialCommandGroup(
       new EncoderDriveDistance(autoDriveSub, driveSub, 3, 0.5),
-      new TurnWithGyro(90, driveSub, RobotContainer.navX),
+      new TurnWithGyro(83, driveSub, RobotContainer.navX),
       new EncoderDriveDistance(autoDriveSub, driveSub, 1, 0.3),
-      new TurnWithGyro(90, driveSub, RobotContainer.navX),
+      new TurnWithGyro(83, driveSub, RobotContainer.navX),
       new EncoderDriveDistance(autoDriveSub, driveSub, 3, 0.5),
-      new TurnWithGyro(90, driveSub, RobotContainer.navX),
+      new TurnWithGyro(83, driveSub, RobotContainer.navX),
       new EncoderDriveDistance(autoDriveSub, driveSub, 1, 0.3),
-      new TurnWithGyro(90, driveSub, RobotContainer.navX)
+      new TurnWithGyro(83, driveSub, RobotContainer.navX)
     );
   }
 
