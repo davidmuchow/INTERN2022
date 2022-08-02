@@ -58,6 +58,7 @@ public class DriveTrain extends SubsystemBase {
   public void setMotors(double setpoint) {
     diffDrive.arcadeDrive(0, -setpoint);
   }
+  
   public void setCoast() {
     for(CANSparkMax[] motorarr : SparkMaxArrays) {
       for(CANSparkMax currMotor : motorarr) {

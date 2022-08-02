@@ -6,7 +6,9 @@ package frc.robot.commands;
 
 
 import com.kauailabs.navx.frc.AHRS;
+import com.revrobotics.CANSparkMax;
 
+import edu.wpi.first.wpilibj.CAN;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveTrain;
@@ -41,13 +43,20 @@ public class TurnWithGyro extends CommandBase {
     SmartDashboard.putNumber("target", targetAngle);
 
     if(targetAngle > 0) {
-      driveSub.diffDrive.arcadeDrive(0.3,0);
+      CANSparkMax[] leftSide = driveSub.SparkMaxArrays.get(0);
+      CANSparkMax[] rightSide = driveSub.SparkMaxArrays.get(1);
+      for(CANSparkMax motor : leftSide) {
+        motor.set(0.3);
+      }
+      for(CANSparkMax motor : rightSide) {
+        motor.set(-0.3);
+      }
       if(targetAngle < Robot.currentAngle) {
         driveSub.setMotors(0);
       }
     }
     if(targetAngle < 0) {
-      driveSub.diffDrive.arcadeDrive(0.3,0);
+      
       if(targetAngle > Robot.currentAngle) {
         driveSub.setMotors(0);
       }
