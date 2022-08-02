@@ -48,8 +48,8 @@ public class DriveOnPath extends CommandBase {
       new SimpleMotorFeedforward(AUTO_CONSTANTS.ksVolts, AUTO_CONSTANTS.kvVoltSecondsPerMeter, AUTO_CONSTANTS.kaVoltSecondsSquaredPerMeter),
       AUTO_CONSTANTS.kDriveKinematics, 
       auto::getWheelSpeeds, 
-      new PIDController(AUTO_CONSTANTS.kPDriveVel, 0, 1.1E-3),
-      new PIDController(AUTO_CONSTANTS.kPDriveVel, 0, 1.1E-3),
+      new PIDController(AUTO_CONSTANTS.kPDriveVel, 0, 1.1E-5),
+      new PIDController(AUTO_CONSTANTS.kPDriveVel, 0, 1.1E-5),
       auto::tankDriveVolts,
       auto,
       drive

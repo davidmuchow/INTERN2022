@@ -4,6 +4,8 @@
 
 package frc.robot.commands;
 
+import java.security.cert.TrustAnchor;
+
 import javax.swing.plaf.ProgressBarUI;
 
 import edu.wpi.first.wpilibj.Encoder;
@@ -36,6 +38,19 @@ public class PathDrive extends CommandBase {
     );
   }
 
+  public Command square() {
+    return new SequentialCommandGroup(
+      new EncoderDriveDistance(autoDriveSub, driveSub, 3, 0.5),
+      new TurnWithGyro(90, driveSub, RobotContainer.navX),
+      new EncoderDriveDistance(autoDriveSub, driveSub, 1, 0.3),
+      new TurnWithGyro(90, driveSub, RobotContainer.navX),
+      new EncoderDriveDistance(autoDriveSub, driveSub, 3, 0.5),
+      new TurnWithGyro(90, driveSub, RobotContainer.navX),
+      new EncoderDriveDistance(autoDriveSub, driveSub, 1, 0.3),
+      new TurnWithGyro(90, driveSub, RobotContainer.navX)
+    );
+  }
+
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
@@ -45,7 +60,7 @@ public class PathDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    profile1().schedule();
+    square().schedule();
   }
 
   // Called once the command ends or is interrupted.
