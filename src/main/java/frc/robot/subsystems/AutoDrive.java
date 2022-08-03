@@ -54,10 +54,10 @@ public class AutoDrive extends SubsystemBase {
     CANSparkMax[] leftSide = driveSub.SparkMaxArrays.get(0);
     CANSparkMax[] rightSide = driveSub.SparkMaxArrays.get(1);
     for(CANSparkMax motor : leftSide) {
-      motor.set(0.15);
+      motor.set(returnLeftGain(speed));
     }
     for(CANSparkMax motor : rightSide) {
-      motor.set(returnRightGain(0.15));
+      motor.set(returnRightGain(speed));
     }
     double currentTicks = Math.abs(encoders.get(0).getPosition());
     SmartDashboard.putNumber("currentTicks", currentTicks);
@@ -65,14 +65,14 @@ public class AutoDrive extends SubsystemBase {
   }
   
   public double returnLeftGain(double speed) {
-    if(Math.abs(speed) > 0.9) {
-      speed = 0.9;
+    speed += 0.03;
+    if(Math.abs(speed) > 0.9263) {
+      speed = 0.9263;
     }
     return speed;
   }
   
   public double returnRightGain(double speed) {
-      speed += 0.1;
       if(Math.abs(speed) > 1) {
         speed = 1;
       }
